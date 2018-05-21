@@ -21,15 +21,15 @@ def verify(url, model, save=False):
     """
     session = requests.session()
     if save:
-        pic_file = 'cache/captcha.jpg'
+        pic_file = '../../www/wwwroot/ehome.susmote.com/captcha.png'
         urllib.request.urlretrieve(url, pic_file)
         image = Image.open(pic_file).convert("L")
     else:
         r = session.get(url)
         print(r)
-        with open('cache/captcha.jpg', 'wb') as f:
+        with open('../../www/wwwroot/ehome.susmote.com/captcha.png', 'wb') as f:
             f.write(r.content)
-        image = Image.open('cache/captcha.jpg')
+        image = Image.open('../../www/wwwroot/ehome.susmote.com/captcha.png')
     x_size, y_size = image.size
     y_size -= 5
 

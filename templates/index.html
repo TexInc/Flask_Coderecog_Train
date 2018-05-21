@@ -13,7 +13,7 @@
             <h5>验证码识别模型训练</h5>
         </div>
         <div class="row pt-3">
-            <img src="captcha.png" class="text-center" alt="验证码">
+            <img src="https://ehome.susmote.com/captcha.png" class="text-center" alt="验证码">
         </div>
         <div class="row pt-3">
             <p class="d-inline-block">识别结果如下</p>
@@ -22,7 +22,7 @@
             <p>{{ right_code }}<p>
         </div>
         <div class="row pt-3">
-            <input type="button" class="btn btn-success mr-3" value="识别正确">
+            <input type="button" class="btn btn-success mr-3" value="识别正确" onclick="javascript:location.reload();">
             <input type="button" class="btn btn-danger" value="识别错误" onclick="inputview()">
             <form action="/result" id="valid_form" class="mt-4" style="display: none">
                 <input type="text" class="form-control" maxlength="4" placeholder="请输入正确验证码">
