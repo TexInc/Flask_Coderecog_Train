@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自动识别验证码训练平台</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="center-grid">
+        <div class="row">
+            <h5>验证码识别模型训练</h5>
+        </div>
+        <div class="row pt-3">
+            <img src="captcha.png" class="text-center" alt="验证码">
+        </div>
+        <div class="row pt-3">
+            <p class="d-inline-block">识别结果如下</p>
+        </div>
+        <div class="row pt-3">
+            <p>{{ right_code }}<p>
+        </div>
+        <div class="row pt-3">
+            <input type="button" class="btn btn-success mr-3" value="识别正确">
+            <input type="button" class="btn btn-danger" value="识别错误" onclick="inputview()">
+            <form action="/result" id="valid_form" class="mt-4" style="display: none">
+                <input type="text" class="form-control" maxlength="4" placeholder="请输入正确验证码">
+                <input type="submit" value="提交" class="btn btn-outline-info mt-2">
+            </form>
+        </div>
+
+    </div>
+</div>
+<script>
+    function inputview() {
+        document.getElementById('valid_form').removeAttribute('style')
+    }
+
+</script>
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/popper.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>
