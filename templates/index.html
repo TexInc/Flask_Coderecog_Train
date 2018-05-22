@@ -24,8 +24,9 @@
         <div class="row pt-3">
             <input type="button" class="btn btn-success mr-3" value="识别正确" onclick="javascript:location.reload();">
             <input type="button" class="btn btn-danger" value="识别错误" onclick="inputview()">
-            <form action="/result" id="valid_form" class="mt-4" style="display: none">
-                <input type="text" class="form-control" maxlength="4" placeholder="请输入正确验证码">
+            {% from "_formhelpers.html" import render_field %}
+            <form action="/results" id="valid_form" class="mt-4" method="post" style="display: none">
+                {{ render_field(form.right_code_view, cols='4', row='1', maxlength="4") }}
                 <input type="submit" value="提交" class="btn btn-outline-info mt-2">
             </form>
         </div>
