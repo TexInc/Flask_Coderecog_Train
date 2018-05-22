@@ -12,7 +12,7 @@ class ReviewForm(Form):
 
 @app.route('/')
 def index():
-    right_code = ''.join(list(verify('http://221.234.230.29/CheckCode.aspx', 'model/SVC_Model_zf.pkl')))
+    right_code = ''.join(list(verify('http://125.221.35.100/CheckCode.aspx', 'model/SVC_Model_zf.pkl')))
     print(right_code)
     form = ReviewForm(request.form)
     return render_template('index.html', right_code=right_code)

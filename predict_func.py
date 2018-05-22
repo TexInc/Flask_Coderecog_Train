@@ -10,26 +10,34 @@ import urllib.request
 import numpy as np
 from PIL import Image
 from sklearn.externals import joblib
+import os
 
 
-def verify(url, model, save=False):
+def verify(url, model):
     """
     :param url: 验证码地址
-    :param model: 处理该验证码的模型
     :param save: 是否保存临时文件到cache
     :return:
     """
+    i = 0
+    file_list = os.listdir('cache/')
+    for file in file_list:
+        file_name = os.path.splitext(file)[0]
+        if file_name != ".DS_Store" and file_name != "captcha":
+            if i == int(file_name):
+                i = int(file_name)+1
+            if i < int(file_name):
+                i = int(file_name)
+    print(i)
     session = requests.session()
-    if save:
-        pic_file = '../../www/wwwroot/ehome.susmote.com/captcha.png'
-        urllib.request.urlretrieve(url, pic_file)
-        image = Image.open(pic_file).convert("L")
-    else:
-        r = session.get(url)
-        print(r)
-        with open('../../www/wwwroot/ehome.susmote.com/captcha.png', 'wb') as f:
-            f.write(r.content)
-        image = Image.open('../../www/wwwroot/ehome.susmote.com/captcha.png')
+    r = session.get(url)
+    print(r)
+    path = 'cache/'
+    with open(path+ 'captcha.png', 'wb') as f:
+        f.write(r.content)
+    with open( path + '%s.png'%(i), 'wb') as f:
+        f.write(r.content)
+    image = Image.open( path +'captcha.png')
     x_size, y_size = image.size
     y_size -= 5
 
@@ -41,10 +49,12 @@ def verify(url, model, save=False):
     for i, center in enumerate(centers):
         single_pic = image.crop((center-(piece+2), 1, center+(piece+2), y_size))
         data[i, :] = np.asarray(single_pic, dtype="float32").flatten() / 255.0
-        if save:
-            single_pic.save('cache/captcha-%s.png' % i)
     clf = joblib.load(model)
     answers = clf.predict(data)
     answers = map(chr, map(lambda x: x + 48 if x <= 9 else x + 87 if x <= 23 else x + 88, map(int, answers)))
     return answers
+
+
+# def save_code():
+
 
