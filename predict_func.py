@@ -19,20 +19,22 @@ def verify(url, model):
     :param save: 是否保存临时文件到cache
     :return:
     """
+    path = '../../www/wwwroot/ehome.susmote.com/train_img/'
     i = 0
-    file_list = os.listdir('cache/')
+    file_list = os.listdir(path)
     for file in file_list:
         file_name = os.path.splitext(file)[0]
         if file_name != ".DS_Store" and file_name != "captcha":
             if i == int(file_name):
-                i = int(file_name)+1
-            if i < int(file_name):
-                i = int(file_name)
+                i = int(file_name) + 1
+            elif i < int(file_name):
+                i = int(file_name) + 1
+            elif i > int(file_name):
+                i = i
     print(i)
     session = requests.session()
     r = session.get(url)
     print(r)
-    path = 'cache/'
     with open(path+ 'captcha.png', 'wb') as f:
         f.write(r.content)
     with open( path + '%s.png'%(i), 'wb') as f:
