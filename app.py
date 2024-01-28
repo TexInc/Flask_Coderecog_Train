@@ -13,7 +13,7 @@ class ReviewForm(Form):
 
 @app.route('/')
 def index():
-    right_code = ''.join(list(verify('http://125.221.35.100/CheckCode.aspx', 'model/SVC_Model_zf.pkl')))
+    right_code = ''.join(list(verify('http://127.0.0.1/CheckCode.aspx', 'model/SVC_Model_zf.pkl')))
     with open("right_code.txt",'a+') as f:
         f.write(right_code+'\n')
     form = ReviewForm(request.form)
